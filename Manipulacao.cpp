@@ -7,14 +7,14 @@
 using namespace std;
 
 
-void contar_caractares(string frase){
+int contar_caractares(string frase){
 
     int caracteres = frase.length();
 
-    cout << "A frase possui " << caracteres << " caracteres" << endl;;
+    return caracteres;
 }
 
-void contar_palavras(string frase){
+int contar_palavras(string frase){
 
     int palavras = 0;
 
@@ -24,11 +24,10 @@ void contar_palavras(string frase){
 
     }
 
-     cout << "A frase possui " << palavras + 1 << " palavras" << endl;
-
+     return palavras + 1;
 }
 
-void contar_a(string frase){
+int contar_a(string frase){
 
     int aparicao_a = 0;
 
@@ -38,14 +37,43 @@ void contar_a(string frase){
 
     }
 
-    cout << "A letra a aparece " << aparicao_a << " vezes na frase" << endl;
+    return aparicao_a;
+
 }
 
-void palavras_repitidas(){
+int palavras_repitidas(string frase){
+
+    vector <string> palavras_separadas;
+    int posicao_espaco, quant_palavras_rep = 0;
 
 
+    do{
 
-    cout << "A frase possui " << repitidas << " palavras repitidas" << endl;
+        posicao_espaco = frase.find(' ');
+
+        palavras_separadas.push_back(frase.substr(0, posicao_espaco));
+
+        frase = frase.substr(posicao_espaco + 1);
+
+    }while(posicao_espaco != -1);
+
+        for(int i = 0; i < palavras_separadas.size(); i++){
+
+            for(int j = 0; j < palavras_separadas.size(); j++){
+
+                if(palavras_separadas[i] == palavras_separadas[j]){
+
+                    if(i != j) quant_palavras_rep++;
+
+                }
+
+            }
+
+        }
+
+        return quant_palavras_rep;
+
+
 }
 
 
@@ -53,22 +81,18 @@ void palavras_repitidas(){
 
     setlocale(LC_ALL, "");
 
-    vector <string> palavras_separadas;
-    int palavras=0,repitidas=0, aparicao_a=0;
-    string frase, ax;
+    string frase;
 
-
-    cout << "Digite a sua frase \n";
+    cout << "Digite a sua frase: \n";
     getline(cin, frase);
 
     cout << endl << endl;
 
 
-    contar_caractares(frase);
-    contar_palavras(frase);
-    contar_a(frase);
-//    palavras_repitidas();
-
+    cout << "A frase possui " << contar_caractares(frase) << " caracteres" << endl;
+    cout << "A frase possui " << contar_palavras(frase) << " palavras" << endl;
+    cout << "A letra a aparece " << contar_a(frase) << " vezes na frase" << endl;
+    cout << "A frase possui " << palavras_repitidas(frase) << " palavras repitidas" << endl;
 
 
     return 0;
